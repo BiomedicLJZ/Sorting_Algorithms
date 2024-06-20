@@ -223,16 +223,6 @@ void radixSort(std::vector<int>& arr) {
     }
 }
 
-// Function to check if the array is sorted
-template <typename T>
-bool isSorted(const std::vector<T>& arr) {
-    for (size_t i = 0; i < arr.size() - 1; i++) {
-        if (arr[i] > arr[i + 1]) {
-            return false;
-        }
-    }
-    return true;
-}
 void splitAndSort(const std::string& inputFile, const std::string& tempFilePrefix, int chunkSize) {
     std::ifstream input(inputFile);
     int fileCount = 0;
@@ -255,7 +245,6 @@ void splitAndSort(const std::string& inputFile, const std::string& tempFilePrefi
         fileCount++;
     }
 }
-
 void merge(const std::string& outputFile, const std::string& tempFilePrefix, int fileCount) {
     std::ofstream output(outputFile);
     std::vector<std::ifstream> tempFiles(fileCount);
@@ -297,7 +286,6 @@ void externalSort(const std::string& inputFile, const std::string& outputFile, i
     splitAndSort(inputFile, tempFilePrefix, chunkSize);
     merge(outputFile, tempFilePrefix, chunkSize);
 }
-
 
 struct Element {
     int value;
@@ -385,6 +373,17 @@ void polyphaseMerge(const std::string& outputFile, const std::string& tempFilePr
             minHeap.push(Element(currentNumbers[minElement.fileIndex], minElement.fileIndex));
         }
     }
+}
+
+// Function to check if the array is sorted
+template <typename T>
+bool isSorted(const std::vector<T>& arr) {
+    for (size_t i = 0; i < arr.size() - 1; i++) {
+        if (arr[i] > arr[i + 1]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // Gtest for bubble sort
