@@ -31,6 +31,17 @@ std::vector<T> generateRandomNumbers(typename std::vector<T>::size_type n) {
     return arr;
 }
 
+void generateRandomNumbersToFile(const std::string& filename, int numNumbers) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, 10000);
+
+    std::ofstream file(filename);
+    for (int i = 0; i < numNumbers; i++) {
+        file << dis(gen) << " ";
+    }
+}
+
 // Bubble Sort
 void bubbleSort(std::vector<int>& arr) {
     int n = arr.size();
@@ -487,16 +498,12 @@ TEST(SortingTest, RadixSortTest) {
 
 // Gtest for external sort
 TEST(SortingTest, ExternalSortTest) {
-    std::string inputFile = "input.txt";
-    std::string outputFile = "output.txt";
+    std::string inputFile = "../input.txt";
+    std::string outputFile = "../output.txt";
     int chunkSize = 1000;  // Adjust this value based on the amount of available memory
 
     // Generate some random numbers and write them to the input file
-    std::vector<int> arr = generateRandomNumbers<int>(100000);
-    std::ofstream input(inputFile);
-    for (int number : arr) {
-        input << number << " ";
-    }
+    generateRandomNumbersToFile(inputFile, 100000);
 
     // Perform the external sort
     auto start = std::chrono::high_resolution_clock::now();
@@ -517,17 +524,13 @@ TEST(SortingTest, ExternalSortTest) {
 
 // Gtest for external multiway merge sort
 TEST(SortingTest, ExternalMultiwayMergeSortTest) {
-    std::string inputFile = "input.txt";
-    std::string outputFile = "output.txt";
+    std::string inputFile = "../input.txt";
+    std::string outputFile = "../output.txt";
     std::string tempFilePrefix = "temp";
     int chunkSize = 1000;  // Adjust this value based on the amount of available memory
 
     // Generate some random numbers and write them to the input file
-    std::vector<int> arr = generateRandomNumbers<int>(100000);
-    std::ofstream input(inputFile);
-    for (int number : arr) {
-        input << number << " ";
-    }
+    generateRandomNumbersToFile(inputFile, 100000);
 
     // Perform the external sort
     splitAndSort(inputFile, tempFilePrefix, chunkSize);
@@ -551,17 +554,13 @@ TEST(SortingTest, ExternalMultiwayMergeSortTest) {
 
 // Gtest for polyphase merge sort
 TEST(SortingTest, PolyphaseMergeSortTest) {
-    std::string inputFile = "input.txt";
-    std::string outputFile = "output.txt";
+    std::string inputFile = "../input.txt";
+    std::string outputFile = "../output.txt";
     std::string tempFilePrefix = "temp";
     int chunkSize = 1000;  // Adjust this value based on the amount of available memory
 
     // Generate some random numbers and write them to the input file
-    std::vector<int> arr = generateRandomNumbers<int>(100000);
-    std::ofstream input(inputFile);
-    for (int number : arr) {
-        input << number << " ";
-    }
+    generateRandomNumbersToFile(inputFile, 100000);
 
     // Perform the external sort
     splitAndSort(inputFile, tempFilePrefix, chunkSize);
